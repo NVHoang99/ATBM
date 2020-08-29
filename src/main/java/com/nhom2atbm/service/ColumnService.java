@@ -29,6 +29,22 @@ public class ColumnService {
     }
     
     public List<Column> getAllRoles() {
-        return columnDAO.getAllRole();
+        return columnDAO.getAllRoles();
+    }
+    
+    public void CapQuyen(String quyen, String table, String user, int wgoVal, List<String> l){
+        columnDAO.CapQuyen(quyen, table, user, wgoVal, l);
+    }
+    
+    public void capRole(String tenRole, String user, int waoval){
+        columnDAO.capRole(tenRole, user, waoval);
+    }
+    
+    public void thuhoiQuyen(String quyen, String table,String user){
+        columnDAO.thuhoiQuyen(quyen, table, user);
+    }
+    
+    public void thuhoiRole(String role,  String user){
+        columnDAO.thuhoiRole(role, user);
     }
 }

@@ -9,6 +9,7 @@ import com.nhom2atbm.model.Column;
 import com.nhom2atbm.service.ColumnService;
 import static java.lang.Boolean.TRUE;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -16,6 +17,7 @@ import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,6 +33,44 @@ public class capQuyenFrame extends javax.swing.JFrame {
     public capQuyenFrame() {
         initComponents();
 
+        DefaultTableModel defaultTableModel = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return switch (columnIndex) {
+                    case 0 ->
+                        String.class;
+                    case 1 ->
+                        Boolean.class;
+                    case 2 ->
+                        Boolean.class;
+                    case 3 ->
+                        Boolean.class;
+                    default ->
+                        Boolean.class;
+                };
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 0;
+            }
+        };
+
+        tbCapQuyen.setModel(defaultTableModel);
+        tbCapQuyen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        defaultTableModel.addColumn("Permission");
+        defaultTableModel.addColumn("Grant");
+        defaultTableModel.addColumn("With grant option");
+        defaultTableModel.addColumn("Revoke");
+        defaultTableModel.addRow(new Object[]{"SELECT", false, false, false});
+        defaultTableModel.addRow(new Object[]{"INSERT", false, false, false});
+        defaultTableModel.addRow(new Object[]{"UPDATE", false, false, false});
+        defaultTableModel.addRow(new Object[]{"DELETE", false, false, false});
+        tbCapQuyen.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+            }
+        });
     }
 
     /**
@@ -131,30 +171,12 @@ public class capQuyenFrame extends javax.swing.JFrame {
 
         tbCapQuyen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Select", null, null, null},
-                {"Insert", null, null, null},
-                {"Update", null, null, null},
-                {"Delete", null, null, null}
+
             },
             new String [] {
-                "Permission", "Grant", "With admin option", "Revoke"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tbCapQuyen.setColumnSelectionAllowed(true);
         tbCapQuyen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -171,44 +193,43 @@ public class capQuyenFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(211, 211, 211)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(radioUser, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioRole, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(301, 301, 301)
-                                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(211, 211, 211)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(radioUser, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(radioRole, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(729, 981, Short.MAX_VALUE))))))
+                                .addGap(48, 48, 48)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(421, 421, 421)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,11 +252,11 @@ public class capQuyenFrame extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(163, 163, 163)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(btnSubmit)
-                .addContainerGap())
+                .addGap(332, 332, 332))
         );
 
         pack();
@@ -282,21 +303,108 @@ public class capQuyenFrame extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        columnService = new ColumnService();
         // kiem tra cac radio button duoc check ko
-    }//GEN-LAST:event_btnSubmitActionPerformed
+        if (radioUser.isSelected() || radioRole.isSelected()
+                && listNameObj.getSelectedIndex() != -1 && listTable.getSelectedIndex() != -1) {
+            try {
+                // cap quyen select co the cap den muc cot
+                Boolean grantVal = (Boolean) tbCapQuyen.getValueAt(0, 1);
+                Boolean waoVal = (Boolean) tbCapQuyen.getValueAt(0, 2);
+                if (listColumn.getSelectedIndex() != -1) {
+                    List<String> listCol;
+                    listCol = listColumn.getSelectedValuesList();
+                    
+                    if (grantVal && !waoVal) {
+                        columnService.CapQuyen("SELECT", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 0, listCol);
+                    }
+                    if (grantVal && waoVal) {
+                        columnService.CapQuyen("SELECT", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 1, listCol);
+                    }
+                } else {
+                    if (grantVal && !waoVal) {
+                        columnService.CapQuyen("SELECT", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 0, null);
+                    }
+                    if (grantVal && waoVal) {
+                        columnService.CapQuyen("SELECT", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 1, null);
+                    }
+                }
 
-    private void tbCapQuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCapQuyenMouseClicked
-        // TODO add your handling code here:
-        Boolean b, b2 = null;
+                // cap quyen insert khong cho cap den muc cot
+                Boolean grantVal2 = (Boolean) tbCapQuyen.getValueAt(1, 1);
+                Boolean waoVal2 = (Boolean) tbCapQuyen.getValueAt(1, 2);
+                if (grantVal2 && !waoVal2) {
+                    columnService.CapQuyen("INSERT", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 0, null);
+                }
+                if (grantVal2 && waoVal2) {
+                    columnService.CapQuyen("INSERT", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 1, null);
+                }
 
-        b = (Boolean) tbCapQuyen.getValueAt(1, 1);
-        b2 = (Boolean) tbCapQuyen.getValueAt(3, 1);
-        if (b || b2) {
-            listColumn.setEnabled(Boolean.FALSE);
-        } else {
-            listColumn.setEnabled(Boolean.TRUE);
+                // cap quyen update co the cap den muc cot
+                Boolean grantVal3 = (Boolean) tbCapQuyen.getValueAt(2, 1);
+                Boolean waoVal3 = (Boolean) tbCapQuyen.getValueAt(2, 2);
+                if (listColumn.getSelectedIndex() != -1) {
+                    List<String> listCol;
+                    listCol = listColumn.getSelectedValuesList();
+                    
+                    if (grantVal3 && !waoVal3) {
+                        columnService.CapQuyen("UPDATE", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 0, listCol);
+                    }
+                    if (grantVal3 && waoVal3) {
+                        columnService.CapQuyen("UPDATE", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 1, listCol);
+                    }
+                } else {
+                    if (grantVal3 && !waoVal3) {
+                        columnService.CapQuyen("UPDATE", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 0, null);
+                    }
+                    if (grantVal3 && waoVal3) {
+                        columnService.CapQuyen("UPDATE", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 1, null);
+                    }
+                }
+
+                // cap quyen delete khong duoc cap den muc cot
+                Boolean grantVal4 = (Boolean) tbCapQuyen.getValueAt(3, 1);
+                Boolean waoVal4 = (Boolean) tbCapQuyen.getValueAt(3, 2);
+                if (grantVal4 && !waoVal4) {
+                    columnService.CapQuyen("DELETE", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 0, null);
+                }
+                if (grantVal4 && waoVal4) {
+                    columnService.CapQuyen("DELETE", listTable.getSelectedValue(), listNameObj.getSelectedValue(), 1, null);
+                }
+                
+                //thu hoi quyen tren bang cua user hoac role
+                //thu hoi quyen select
+                Boolean sel_Rev_Val = (Boolean) tbCapQuyen.getValueAt(0, 3);
+                if (sel_Rev_Val) {
+                    columnService.thuhoiQuyen("SELECT", listTable.getSelectedValue() , listNameObj.getSelectedValue());
+                }
+                
+                //thu hoi quyen insert
+                Boolean ins_Rev_Val = (Boolean) tbCapQuyen.getValueAt(1, 3);
+                if (ins_Rev_Val) {
+                    columnService.thuhoiQuyen("INSERT",listTable.getSelectedValue(), listNameObj.getSelectedValue());
+                }
+                
+                //thu hoi quyen delete
+                Boolean del_Rev_Val = (Boolean) tbCapQuyen.getValueAt(3, 3);
+                if (del_Rev_Val) {
+                    columnService.thuhoiQuyen("DELETE", listTable.getSelectedValue(), listNameObj.getSelectedValue());
+                }
+                
+                //thu hoi quyen update
+                Boolean upd_Rev_Val = (Boolean) tbCapQuyen.getValueAt(2, 3);
+                if (upd_Rev_Val) {
+                    columnService.thuhoiQuyen("UPDATE", listTable.getSelectedValue(), listNameObj.getSelectedValue());
+                }
+                
+                
+            } catch (NullPointerException ex) {
+                System.out.println(ex);
+            }
+
         }
-    }//GEN-LAST:event_tbCapQuyenMouseClicked
+
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void radioRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioRoleActionPerformed
         // TODO add your handling code here:
@@ -312,9 +420,21 @@ public class capQuyenFrame extends javax.swing.JFrame {
             } catch (NullPointerException ex) {
                 System.out.println(ex);
             }
+            
+            
         }
     }//GEN-LAST:event_radioRoleActionPerformed
 
+    private void tbCapQuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCapQuyenMouseClicked
+        // TODO add your handling code here:
+        Boolean b = (Boolean) tbCapQuyen.getValueAt(1, 1);
+        Boolean b2 = (Boolean) tbCapQuyen.getValueAt(3, 1);
+        if (b || b2) {
+            listColumn.setEnabled(Boolean.FALSE);
+        } else {
+            listColumn.setEnabled(Boolean.TRUE);
+        }
+    }//GEN-LAST:event_tbCapQuyenMouseClicked
 
     /**
      * @param args the command line arguments
@@ -330,16 +450,21 @@ public class capQuyenFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(capQuyenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(capQuyenFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(capQuyenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(capQuyenFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(capQuyenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(capQuyenFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(capQuyenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(capQuyenFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -349,7 +474,7 @@ public class capQuyenFrame extends javax.swing.JFrame {
                 new capQuyenFrame().setVisible(true);
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

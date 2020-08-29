@@ -5,17 +5,73 @@
  */
 package com.nhom2atbm.view;
 
+import com.nhom2atbm.model.Column;
+import com.nhom2atbm.service.ColumnService;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author NGUYỄN HOÀNG
  */
 public class capRoleFrame extends javax.swing.JFrame {
-
+    ColumnService columnService;
     /**
      * Creates new form capRoleFrame
      */
     public capRoleFrame() {
         initComponents();
+
+        DefaultTableModel defaultTableModel = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return Boolean.class;
+            }
+        };
+
+        tbCapRole.setModel(defaultTableModel);
+        tbCapRole.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        defaultTableModel.addColumn("Grant");
+        defaultTableModel.addColumn("With admin option");
+        defaultTableModel.addColumn("Revoke");
+        defaultTableModel.addRow(new Object[]{false, false, false});
+        tbCapRole.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+            }
+        });
+
+        try {
+            columnService = new ColumnService();
+            //String tbName = listTable.getSelectedValue();
+            List<Column> columns = columnService.getAllRoles();
+
+            DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+            columns.forEach(co -> {
+                defaultListModel.addElement(co.getColumnName());
+            });
+            listRole.setModel(defaultListModel);
+        } catch (NullPointerException ex) {
+            System.out.println(ex);
+        }
+        
+        try {
+            columnService = new ColumnService();
+            //String tbName = listTable.getSelectedValue();
+            List<Column> columns = columnService.getAllUsers();
+
+            DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+            columns.forEach(co -> {
+                defaultListModel.addElement(co.getColumnName());
+            });
+            listUser.setModel(defaultListModel);
+        } catch (NullPointerException ex) {
+            System.out.println(ex);
+        }
     }
 
     /**
@@ -27,31 +83,130 @@ public class capRoleFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listRole = new javax.swing.JList<>();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listUser = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbCapRole = new javax.swing.JTable();
+        btnSubmit = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("CẤP ROLE CHO USER");
+
+        jLabel2.setText("Role muốn cấp:");
+
+        jScrollPane1.setViewportView(listRole);
+
+        jLabel3.setText("User được cấp:");
+
+        jScrollPane2.setViewportView(listUser);
+
+        tbCapRole.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(tbCapRole);
+
+        btnSubmit.setText("Xác nhận");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(389, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(229, 229, 229)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(btnSubmit)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        if (listRole.getSelectedIndex() != -1 && listUser.getSelectedIndex() != -1){
+            Boolean b = (Boolean) tbCapRole.getValueAt(0, 0);
+            Boolean b2 = (Boolean) tbCapRole.getValueAt(0, 1);
+            // cap role cho user
+            if (b && !b2) {
+                columnService.capRole(listRole.getSelectedValue(), listUser.getSelectedValue(), 0);
+            } else if (b && b2) {
+                columnService.capRole(listRole.getSelectedValue(), listUser.getSelectedValue(), 1);
+            }
+            
+             // thu hoi role tu user
+             Boolean b3 = (Boolean) tbCapRole.getValueAt(0, 2);
+             if (b3) {
+                 columnService.thuhoiRole(listRole.getSelectedValue(), listUser.getSelectedValue());
+             }
+        }
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -89,6 +244,17 @@ public class capRoleFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JList<String> listRole;
+    private javax.swing.JList<String> listUser;
+    private javax.swing.JTable tbCapRole;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,8 +18,8 @@ import java.util.logging.Logger;
 public class OracleJDBCConnection {
     public static Connection getJDBCConnection(){
         final String url="jdbc:oracle:thin:@//localhost:1521/db11g";
-        final String user="SYS as SYSDBA";
-        final String password="123456kk";
+        final String user="X_ATBMGK32";
+        final String password="x123";
         try {
             Class.forName("oracle.jdbc.OracleDriver");
             try {
